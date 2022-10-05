@@ -32,7 +32,7 @@ for (let fila = 0; fila < maxFilas; fila++) {
         
     }
 }
-
+/*
 while (contadorMinas < numMinas) {
     posFila = Math.floor(Math.random() * maxFilas);
     posColumna = Math.floor(Math.random() * maxColumnas);
@@ -42,9 +42,45 @@ while (contadorMinas < numMinas) {
         contadorMinas++;
     }
 }
+*/
+
+let F = 1
+let C = 1
+
+arrayTablero[F][C] = 'MINA'
+
+if (arrayTablero[F][C] == 'MINA'){
+
+    for (let posiciones = 0;posiciones < 3;posiciones++) {
+
+        if (arrayTablero[F-1][C] == null){
+            continue
+        }else{
+            arrayTablero[F-1][posiciones] = 1
+        }
+       
+        if (arrayTablero[F+1][C] === null){
+            continue
+        }else{
+            arrayTablero[F+1][posiciones] = 1
+        }
+       
+    }
+    if (arrayTablero[F][C-1] != null){
+        arrayTablero[1][C-1] = 1
+    }
+
+    if (arrayTablero[F][C+1] != null){
+        arrayTablero[1][C+1] = 1
+    }
+    
+    
+
+}
 
 console.log(arrayTablero)
-console.log(contadorMinas)
+//console.log(contadorMinas)
+
 
 
 
