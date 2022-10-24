@@ -62,5 +62,34 @@ class Tablero{
 
 }
 
+class Memory extends Tablero{
+
+    constructor(){
+        super();
+
+        this.colocarEmoticonos();
+        this.dibujarTablero();
+    }
+
+    colocarEmoticonos(){
+        let emoticonos = ["&#127514;","&#127535;","&#127538;","&#127539;","&#127540;",
+        "&#127541;","&#127542;","&#127544;","&#127490;","&#127543;"];
+
+        let numAleatorio = 0;
+
+        for (let filas = 0; filas < this.filas; filas++) {
+            for (let columnas = 0; columnas < this.columnas; columnas++) {
+                numAleatorio = Math.floor(Math.random() * emoticonos.length);
+                this.arrayTablero[filas][columnas] = emoticonos[numAleatorio];
+                
+            }
+            
+        }
+
+    }
+
+}
+
+let tableroMaster = new Memory();
 
 
