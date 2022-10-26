@@ -1,34 +1,33 @@
-class Tablero{
-    
+class Tablero {
+
     filas;
     columnas;
 
-    constructor(){
-        
+    constructor() {
+
         this.tamañoTablero();
         this.esParTablero();
         this.crearTablero();
-        
+
 
     }
 
-
-    tamañoTablero(){
+    tamañoTablero() {
         this.filas = parseInt(prompt("¿Cuántas filas quieres en el tablero?"));
         this.columnas = parseInt(prompt("¿Cuántas columnas quieres en el tablero?"));
     }
 
-    esParTablero(){
+    esParTablero() {
         let par = false;
-        while (par != true){
-            if (this.filas * this.columnas % 2 != 0){
+        while (par != true) {
+            if (this.filas * this.columnas % 2 != 0) {
                 alert("El tablero no es par con los valores que has introucido \n Por favor, cambialos.");
                 this.tamañoTablero();
-            }else{
+            } else {
                 par = true;
             }
         }
-        
+
     }
 
     crearTablero() {
@@ -52,7 +51,6 @@ class Tablero{
 
             for (let j = 0; j < this.columnas; j++) {
                 document.write(`<td>${this.arrayTablero[i][j]}</td>`);
-                console.log(this.arrayTablero[i][j]);
             }
 
             document.write('</tr>');
@@ -62,32 +60,48 @@ class Tablero{
 
 }
 
-class Memory extends Tablero{
+class Memory extends Tablero {
 
-    constructor(){
+    constructor() {
         super();
 
         this.colocarEmoticonos();
         this.dibujarTablero();
     }
 
-    colocarEmoticonos(){
-        let emoticonos = ["&#127514;","&#127535;","&#127538;","&#127539;","&#127540;",
-        "&#127541;","&#127542;","&#127544;","&#127490;","&#127543;"];
-
-        let numAleatorio = 0;
-
-        for (let filas = 0; filas < this.filas; filas++) {
-            for (let columnas = 0; columnas < this.columnas; columnas++) {
-                numAleatorio = Math.floor(Math.random() * emoticonos.length);
-                this.arrayTablero[filas][columnas] = emoticonos[numAleatorio];
-                
+    colocarEmoticonos() {
+        let emoticonos = ["&#127514;", "&#127535;", "&#127538;", "&#127539;", "&#127540;",
+            "&#127541;", "&#127542;", "&#127544;", "&#127490;", "&#127543;"];
+        let numAleatorio =0;
+        let tamanio = this.filas * this.columnas;
+        let parejas = new Array(tamanio);
+        let contador = 0;
+        
+        for (let i = 0; i < parejas.length ; i++) {
+            if(parejas[i] == null){
+                parejas[i] = emoticonos[contador];
+                parejas[i+1] = emoticonos[contador];
+                contador++;
             }
             
         }
 
-    }
 
+        parejas.sort(()=> Math.random() - 0.5)
+        
+        contador =0;
+        for (let filas = 0; filas < this.filas; filas++) {
+            for (let columnas = 0; columnas < this.columnas; columnas++) {
+                numAleatorio = Math.floor(Math.random() * emoticonos.length);
+                if (this.arrayTablero[filas][columnas] == ''){
+                    this.arrayTablero[filas][columnas] = parejas[contador];
+                    contador++;
+                    
+                }
+            }
+        }
+        
+    }
 }
 
 let tableroMaster = new Memory();
