@@ -72,7 +72,7 @@ class Memory extends Tablero {
     colocarEmoticonos() {
         let emoticonos = ["&#127514;", "&#127535;", "&#127538;", "&#127539;", "&#127540;",
             "&#127541;", "&#127542;", "&#127544;", "&#127490;", "&#127543;"];
-        let numAleatorio =0;
+       
         let tamanio = this.filas * this.columnas;
         let parejas = new Array(tamanio);
         let contador = 0;
@@ -82,17 +82,21 @@ class Memory extends Tablero {
                 parejas[i] = emoticonos[contador];
                 parejas[i+1] = emoticonos[contador];
                 contador++;
+                if (contador >= emoticonos.length){
+                    contador = 0;
+                }
+
             }
             
         }
 
 
-        parejas.sort(()=> Math.random() - 0.5)
+        parejas.sort(()=> Math.random() - 0.5);
         
         contador =0;
         for (let filas = 0; filas < this.filas; filas++) {
             for (let columnas = 0; columnas < this.columnas; columnas++) {
-                numAleatorio = Math.floor(Math.random() * emoticonos.length);
+                
                 if (this.arrayTablero[filas][columnas] == ''){
                     this.arrayTablero[filas][columnas] = parejas[contador];
                     contador++;
