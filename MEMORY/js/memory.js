@@ -69,7 +69,29 @@ class Memory extends Tablero {
         this.dibujarTablero();
     }
 
-    colocarEmoticonos() {
+    colocarEmoticonos(parejas) {
+        parejas = this.hacerParejas();
+        parejas = this.desordenarArray(parejas);
+
+
+        let contador =0;
+        for (let filas = 0; filas < this.filas; filas++) {
+            for (let columnas = 0; columnas < this.columnas; columnas++) {
+                
+                if (this.arrayTablero[filas][columnas] == ''){
+                    this.arrayTablero[filas][columnas] = parejas[contador];
+                    contador++;
+                    
+                }
+            }
+        }
+        
+    }
+    desordenarArray(array){
+        return array.sort(()=> Math.random() - 0.5);
+    }
+
+    hacerParejas(){
         let emoticonos = ["&#127514;", "&#127535;", "&#127538;", "&#127539;", "&#127540;",
             "&#127541;", "&#127542;", "&#127544;", "&#127490;", "&#127543;"];
        
@@ -90,21 +112,7 @@ class Memory extends Tablero {
             
         }
 
-
-        parejas.sort(()=> Math.random() - 0.5);
-        
-        contador =0;
-        for (let filas = 0; filas < this.filas; filas++) {
-            for (let columnas = 0; columnas < this.columnas; columnas++) {
-                
-                if (this.arrayTablero[filas][columnas] == ''){
-                    this.arrayTablero[filas][columnas] = parejas[contador];
-                    contador++;
-                    
-                }
-            }
-        }
-        
+        return parejas;
     }
 }
 
