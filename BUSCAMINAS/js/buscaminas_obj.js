@@ -35,6 +35,42 @@ class Tablero {
         document.write('</table>');
     }
 
+    dibujarTableroDOM() {
+        
+            let tablero = document.createElement("table");
+            document.body.appendChild(tablero);
+            let fila;
+            let columna;
+
+            for (let i = 0; i < this.filas; i++) {
+                fila = document.createElement("tr");
+                tablero.appendChild(fila);
+
+                for (let j = 0; j < this.columnas; j++) {
+                    columna = document.createElement("td");
+                    fila.appendChild(columna);
+
+                    columna.id = "f"+i+"c"+j;
+                    columna.dataset.fila = i;
+                    columna.dataset.columna = j;
+
+                    // EVENTOS
+                    columna.addEventListener('click', this.despejar);
+                    columna.addEventListener('contextmenu', this.marcar);
+                    
+                }
+            }
+    }
+
+    despejar() {
+        alert("Despejada celada("+this.dataset.fila+", "+this.dataset.columna+")");
+
+    }
+
+    marcar(){
+        alert("Marcada celada("+this.dataset.fila+", "+this.dataset.columna+")");
+    }
+
     modificarFilas(nuevasFilas) {
         // Modificar el número de filas y volver a crear el tablero con las filas nuevas
         this.filas = nuevasFilas;
@@ -103,7 +139,7 @@ class Buscaminas extends Tablero {
     }
 
 }
-
+window.onload = function(){
 let buscaminas1 = new Buscaminas(5, 5, 5);
-console.log(buscaminas1.arrayTablero);
-buscaminas1.dibujarTablero();
+buscaminas1.dibujarTableroDOM();
+};
