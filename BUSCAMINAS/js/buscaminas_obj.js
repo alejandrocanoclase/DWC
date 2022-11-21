@@ -53,6 +53,7 @@ class Tablero {
                     columna.id = "f"+i+"c"+j;
                     columna.dataset.fila = i;
                     columna.dataset.columna = j;
+                    columna.style.backgroundColor ="gray";
 
                     // EVENTOS
                     columna.addEventListener('click', this.despejar);
@@ -63,11 +64,38 @@ class Tablero {
     }
 
     despejar() {
-        alert("Despejada celada("+this.dataset.fila+", "+this.dataset.columna+")");
+        //alert("Despejada celada("+this.dataset.fila+", "+this.dataset.columna+")");
+
+    //alert(`${this.style.backgroundColor}`);        
+        
+        switch (this.innerHTML){
+            case this.innerHTML ="":
+                this.innerHTML="&#127987;";
+                break;
+            case this.innerHTML="&#127987;":
+                this.innerHTML="&#10067;";
+                break;
+            default:
+                this.innerHTML="";
+        }
+         
+
+        /*
+        if (this.style.backgroundColor == "rgb(182, 182, 182)"){
+            this.style.backgroundColor ="red";
+        }else if(this.style.backgroundColor ="red"){
+            this.style.backgroundColor ="yellow";
+        }else if(this.style.backgroundColor ="yellow"){
+
+        }
+        */
+        
+        
 
     }
 
     marcar(){
+        
         alert("Marcada celada("+this.dataset.fila+", "+this.dataset.columna+")");
     }
 
