@@ -36,49 +36,40 @@ class Tablero {
     }
 
     dibujarTableroDOM() {
-        
-            let tablero = document.createElement("table");
-            document.body.appendChild(tablero);
-            let fila;
-            let columna;
 
-            for (let i = 0; i < this.filas; i++) {
-                fila = document.createElement("tr");
-                tablero.appendChild(fila);
+        let tablero = document.createElement("table");
+        document.body.appendChild(tablero);
+        let fila;
+        let columna;
 
-                for (let j = 0; j < this.columnas; j++) {
-                    columna = document.createElement("td");
-                    fila.appendChild(columna);
+        for (let i = 0; i < this.filas; i++) {
+            fila = document.createElement("tr");
+            tablero.appendChild(fila);
 
-                    columna.id = "f"+i+"c"+j;
-                    columna.dataset.fila = i;
-                    columna.dataset.columna = j;
-                    columna.style.backgroundColor ="gray";
+            for (let j = 0; j < this.columnas; j++) {
+                columna = document.createElement("td");
+                fila.appendChild(columna);
 
-                    // EVENTOS
-                    columna.addEventListener('click', this.despejar);
-                    columna.addEventListener('contextmenu', this.marcar);
-                    
-                }
+                columna.id = "f" + i + "c" + j;
+                columna.dataset.fila = i;
+                columna.dataset.columna = j;
+                //columna.style.backgroundColor = "gray";
+
+                // EVENTOS
+                columna.addEventListener('click', this.despejar);
+                columna.addEventListener('contextmenu', this.marcar);
+
             }
+        }
     }
 
     despejar() {
         //alert("Despejada celada("+this.dataset.fila+", "+this.dataset.columna+")");
 
-    //alert(`${this.style.backgroundColor}`);        
-        
-        switch (this.innerHTML){
-            case this.innerHTML ="":
-                this.innerHTML="&#127987;";
-                break;
-            case this.innerHTML="&#127987;":
-                this.innerHTML="&#10067;";
-                break;
-            default:
-                this.innerHTML="";
-        }
-         
+        //alert(`${this.style.backgroundColor}`);        
+
+
+
 
         /*
         if (this.style.backgroundColor == "rgb(182, 182, 182)"){
@@ -89,14 +80,31 @@ class Tablero {
 
         }
         */
-        
-        
+
+
 
     }
 
-    marcar(){
-        
-        alert("Marcada celada("+this.dataset.fila+", "+this.dataset.columna+")");
+    marcar() {
+
+        //alert("Marcada celada("+this.dataset.fila+", "+this.dataset.columna+")");
+
+        window.oncontextmenu = function(){
+            return false;
+        };
+
+        switch (this.innerHTML) {
+            case this.innerHTML = "":
+                this.innerHTML = "🚩";
+                break;
+            case this.innerHTML = "🚩":
+                this.innerHTML = "❓";
+                break;
+            case this.innerHTML = "❓":
+                this.innerHTML = "";
+        }
+
+
     }
 
     modificarFilas(nuevasFilas) {
@@ -167,7 +175,7 @@ class Buscaminas extends Tablero {
     }
 
 }
-window.onload = function(){
-let buscaminas1 = new Buscaminas(5, 5, 5);
-buscaminas1.dibujarTableroDOM();
+window.onload = function () {
+    let buscaminas1 = new Buscaminas(5, 5, 5);
+    buscaminas1.dibujarTableroDOM();
 };
