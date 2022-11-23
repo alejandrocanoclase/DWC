@@ -61,51 +61,10 @@ class Tablero {
 
             }
         }
+        console.log(this.arrayTablero);
     }
 
-    despejar() {
-        //alert("Despejada celada("+this.dataset.fila+", "+this.dataset.columna+")");
-
-        //alert(`${this.style.backgroundColor}`);        
-
-
-
-
-        /*
-        if (this.style.backgroundColor == "rgb(182, 182, 182)"){
-            this.style.backgroundColor ="red";
-        }else if(this.style.backgroundColor ="red"){
-            this.style.backgroundColor ="yellow";
-        }else if(this.style.backgroundColor ="yellow"){
-
-        }
-        */
-
-
-
-    }
-
-    marcar() {
-
-        //alert("Marcada celada("+this.dataset.fila+", "+this.dataset.columna+")");
-
-        window.oncontextmenu = function(){
-            return false;
-        };
-
-        switch (this.innerHTML) {
-            case this.innerHTML = "":
-                this.innerHTML = "🚩";
-                break;
-            case this.innerHTML = "🚩":
-                this.innerHTML = "❓";
-                break;
-            case this.innerHTML = "❓":
-                this.innerHTML = "";
-        }
-
-
-    }
+    
 
     modificarFilas(nuevasFilas) {
         // Modificar el número de filas y volver a crear el tablero con las filas nuevas
@@ -172,6 +131,47 @@ class Buscaminas extends Tablero {
                 }
             }
         }
+
+        
+
+    }
+
+    despejar() {
+        let fila = this.dataset.fila;
+        let columna = this.dataset.columna;
+
+        console.log(this.arrayTablero[fila][columna]);
+
+        alert("this.arrayTablero[fila][columna]");
+
+        /*
+        if(this.arrayTablero[fila][columna] >= 0 && this.arrayTablero[fila][columna <= 8]){
+            this.innerHTML = this.arrayTablero[fila][columna];
+        }
+        */
+
+    }
+
+    marcar() {
+
+        //alert("Marcada celada("+this.dataset.fila+", "+this.dataset.columna+")");
+
+        window.oncontextmenu = function(){
+            return false;
+        };
+
+        switch (this.innerHTML) {
+            case this.innerHTML = "":
+                this.innerHTML = "🚩";
+                break;
+            case this.innerHTML = "🚩":
+                this.innerHTML = "❓";
+                break;
+            case this.innerHTML = "❓":
+                this.innerHTML = "";
+        }
+
+
     }
 
 }
