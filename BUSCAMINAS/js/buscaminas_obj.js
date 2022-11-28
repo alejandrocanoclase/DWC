@@ -53,15 +53,9 @@ class Tablero {
                 columna.id = "f" + i + "c" + j;
                 columna.dataset.fila = i;
                 columna.dataset.columna = j;
-                //columna.style.backgroundColor = "gray";
-
-                // EVENTOS
-                columna.addEventListener('click', this.despejar);
-                columna.addEventListener('contextmenu', this.marcar);
-
+                
             }
         }
-        console.log(this.arrayTablero);
     }
 
     
@@ -136,26 +130,73 @@ class Buscaminas extends Tablero {
 
     }
 
-    despejar() {
-        let fila = this.dataset.fila;
-        let columna = this.dataset.columna;
 
-        console.log(this.arrayTablero[fila][columna]);
+    dibujarTableroDOM(){
+        super.dibujarTableroDOM();
 
-        alert("this.arrayTablero[fila][columna]");
+        let celda;
 
-        /*
-        if(this.arrayTablero[fila][columna] >= 0 && this.arrayTablero[fila][columna <= 8]){
-            this.innerHTML = this.arrayTablero[fila][columna];
+        for (let i = 0; i < this.filas; i++) {
+            for (let j = 0; j < this.columnas; j++) {
+                
+                 // EVENTOS
+                 celda = document.getElementById("f" + i + "c" + j);
+
+                 celda.addEventListener('click', this.despejar.bind(this));
+                 celda.addEventListener('contextmenu', this.marcar);
+                
+            }
+            
         }
-        */
+
+        console.log(this.arrayTablero);
+
+    }
+
+    despejar(elEvento) {
+        let evento = elEvento || window.event;
+        let celda = evento.currentTarget;
+        let fila = celda.dataset.fila;
+        let columna = celda.dataset.columna;
+
+        let contenido = this.arrayTablero[fila][columna];
+
+        //alert(contenido);
+        //console.log(this.arrayTablero);
+
+        
+        if(contenido >= 1 && contenido <= 8){
+            celda.innerHTML = contenido;
+        }else if(contenido == 'MINA'){
+            celda.innerHTML = contenido;
+            alert('perdiste por mamahuevo');
+
+            let elemento;
+            for (let i = 0; i < this.filas; i++) {
+                for (let j = 0; j < this.columnas; j++) {
+                    elemento = document.getElementById("f" + i + "c" + j);
+
+                    if(elemento.innerHTML=="🚩" && this.arrayTablero[i][j] != 'MINA'){
+                        elemento.style.backgroundColor="orange";
+                    }
+
+                    if(this.arrayTablero[i][j] == 'MINA'){
+                        elemento.innerHTML= this.arrayTablero[i][j];
+                        elemento.style.backgroundColor="orange";
+                    }
+                    
+                }
+                
+            }
+        }else if(contenido == 0){
+            celda.innerHTML = contenido;
+            this.despejar
+        }
+        
 
     }
 
     marcar() {
-
-        //alert("Marcada celada("+this.dataset.fila+", "+this.dataset.columna+")");
-
         window.oncontextmenu = function(){
             return false;
         };
