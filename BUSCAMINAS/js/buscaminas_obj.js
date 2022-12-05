@@ -53,12 +53,12 @@ class Tablero {
                 columna.id = "f" + i + "c" + j;
                 columna.dataset.fila = i;
                 columna.dataset.columna = j;
-                
+
             }
         }
     }
 
-    
+
 
     modificarFilas(nuevasFilas) {
         // Modificar el número de filas y volver a crear el tablero con las filas nuevas
@@ -126,27 +126,27 @@ class Buscaminas extends Tablero {
             }
         }
 
-        
+
 
     }
 
 
-    dibujarTableroDOM(){
+    dibujarTableroDOM() {
         super.dibujarTableroDOM();
 
         let celda;
 
         for (let i = 0; i < this.filas; i++) {
             for (let j = 0; j < this.columnas; j++) {
-                
-                 // EVENTOS
-                 celda = document.getElementById("f" + i + "c" + j);
 
-                 celda.addEventListener('click', this.despejar.bind(this));
-                 celda.addEventListener('contextmenu', this.marcar);
-                
+                // EVENTOS
+                celda = document.getElementById("f" + i + "c" + j);
+
+                celda.addEventListener('click', this.despejar.bind(this));
+                celda.addEventListener('contextmenu', this.marcar);
+
             }
-            
+
         }
 
         console.log(this.arrayTablero);
@@ -164,10 +164,12 @@ class Buscaminas extends Tablero {
         //alert(contenido);
         //console.log(this.arrayTablero);
 
-        
-        if(contenido >= 1 && contenido <= 8){
+
+        if (contenido > 0 && contenido < 9) {
             celda.innerHTML = contenido;
-        }else if(contenido == 'MINA'){
+            celda.removeEventListener('click', this.despejar.bind(this));
+            celda.removeEventListener('contextmenu', this.marcar);
+        } else if (contenido == 'MINA') {
             celda.innerHTML = contenido;
             alert('perdiste por mamahuevo');
 
@@ -176,28 +178,44 @@ class Buscaminas extends Tablero {
                 for (let j = 0; j < this.columnas; j++) {
                     elemento = document.getElementById("f" + i + "c" + j);
 
-                    if(elemento.innerHTML=="🚩" && this.arrayTablero[i][j] != 'MINA'){
-                        elemento.style.backgroundColor="orange";
+                    if (elemento.innerHTML == "🚩" && this.arrayTablero[i][j] != 'MINA') {
+                        elemento.style.backgroundColor = "pink";
                     }
-
-                    if(this.arrayTablero[i][j] == 'MINA'){
-                        elemento.innerHTML= this.arrayTablero[i][j];
-                        elemento.style.backgroundColor="orange";
+                    if (this.arrayTablero[i][j] == 'MINA') {
+                        elemento.innerHTML = this.arrayTablero[i][j];
+                        elemento.style.backgroundColor = "orange";
                     }
-                    
                 }
-                
             }
-        }else if(contenido == 0){
+        } else if (contenido == 0) {
+            //alert(celda.id + " " + this.filas);
+            let elemento;
             celda.innerHTML = contenido;
-            this.despejar
-        }
-        
+            
+            let cFilas = parseInt(celda.dataset.fila);
+            console.log(typeof cFilas);
+            let cColumna = parseInt(celda.dataset.columna);
+            console.log(typeof cColumna);
 
+            for (let i = cFilas - 1; i <= cFilas + 1; i++) {
+                if (i >= 0 && i <= this.filas) {
+                    for (let j = cColumna -1; j <= cColumna +1; j++){
+                        if(j >= 0 && j <= this.columnas){
+                            elemento = document.getElementById("f" + i + "c" + j);
+                            if (this.arrayTablero[i][j] !='MINA' && this.arrayTablero != 0){
+                                elemento.innerHTML= this.arrayTablero[i][j];
+                            }else if(this.arrayTablero[i][j] = 0){
+                                this.despejar();
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     marcar() {
-        window.oncontextmenu = function(){
+        window.oncontextmenu = function () {
             return false;
         };
 
