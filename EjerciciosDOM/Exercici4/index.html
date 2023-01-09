@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM - Formularis - Exercici4</title>
+    <script src="exercici4_clase.js"></script>
+</head>
+<body>
+    <form name="formulario" id="formulario">
+        <label for="nombre">Nom</label>
+        <input type=text id="nombre" name="nombre" default="Belén" autofocus><br><br>
+        <textarea name="mensaje" rows="5" cols="50">Buenos días, gente!!</textarea><br><br>
+        <input type="radio" id="hombre" name="sexo" value="hombre">
+        <label for="hombre">Hombre</label>
+        <input type="radio" id="mujer" name="sexo" value="mujer" default>
+        <label for="mujer">Mujer</label><br><br>
+        <input type="checkbox" id="bicicleta" name="bicicleta" value="bicicleta" onclick="habilitarSelect('marcaBici')" >
+        <label for="bicicleta">Tengo una bicleta</label><br>
+        <select id="marcaBici" name="marcaBicis" size="6" multiple disabled>
+            <option value="Decathlon">Decathlon</option>
+            <option value="BH">BH</option>
+            <option value="Trek">Trek</option>
+            <option value="Orbea">Orbea</option>
+            <option value="Tucano">Tucano</option>
+            <option value="Ridley">Ridley</option>
+        </select><br><br>
+        <input type="checkbox" id="coche" name="coche" value="coche" onclick="habilitarSelect('marcaCoche')">
+        <label for="coche">Tengo un coche</label><br>
+        <select id="marcaCoche" name="marcaCoche" size="1" disabled>
+            <option value="volvo">Volvo</option>
+            <option value="peugeot">Peugeot</option>
+            <option value="fiat">Fiat</option>
+            <option value="audi">Audi</option>
+        </select><br><br>
+        <input type="button" value="VALIDAR" onclick="this.disabled=true; validarFormulario('formulario')">
+    </form>
+    
+</body>
+</html>

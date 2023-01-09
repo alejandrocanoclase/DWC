@@ -233,7 +233,7 @@ class Buscaminas extends Tablero {
         switch (celda.innerHTML) {
             case celda.innerHTML = "":
                 
-                if (this.banderas != 5){
+                if (this.banderas != this.numMinas){
                     this.banderas ++;
                     celda.innerHTML = "🚩";
                 }else{

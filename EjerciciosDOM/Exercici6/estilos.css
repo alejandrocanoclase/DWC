@@ -1,0 +1,32 @@
+.exterior {
+    width: 60px;
+    height: 170px;
+    background-color: green;
+    border: 1px solid black;
+}
+
+.pal {
+    height: 140px;
+    width: 20px;
+    margin-left: 20px;
+}
+
+.ences, .apagat {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    background-color: black;
+    border-radius: 25px;
+}
+
+#vermell.ences {
+    background-color: red;
+}
+
+#ambre.ences {
+    background-color: orange;
+}
+
+#verd.ences {
+    background-color: LawnGreen
+}

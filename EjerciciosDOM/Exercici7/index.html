@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUEGO MINILOTERIA</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="miniloteria.js"></script>
+</head>
+<body>
+    <h1>Miniloteria</h1>
+    <div class="grid-container" id="divContenedor">
+        <div class='grid-item' id="numero1">
+        </div>
+        <div class='grid-item' id="numero2">
+        </div>
+        <div class='grid-item' id="numero3">
+        </div>
+    </div>
+    <input id="generarDecimo" type="button" value="Generar décimo"  onclick="generarDecimo('divContenedor')">
+    <input id="realizarSorteo" type="button" value="Realizar sorteo" onclick="realizarSorteo()" disabled>
+    <div class="sorteo"  id="numeroSorteo">
+    </div>
+</body>
+</html>
