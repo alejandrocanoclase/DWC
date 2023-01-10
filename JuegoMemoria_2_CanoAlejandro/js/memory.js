@@ -47,19 +47,26 @@ class Tablero {
         }
     }
 
-    // Dibuja en pantalla el array creado en crearTablero.
+    // Dibuja en pantalla el tablero mediante el DOM.
     dibujarTablero() {
-        document.write('<table>');
-        for (let i = 0; i < this.filas; i++) {
-            document.write('<tr>');
-            for (let j = 0; j < this.columnas; j++) {
-                document.write(`<td>${this.arrayTablero[i][j]}</td>`);
-            }
-            document.write('</tr>');
-        }
-        document.write('</table>');
-    }
+        let tablero = document.createElement("table");
+        document.body.appendChild(tablero);
+        let fila;
+        let columna;
 
+        for (let i = 0; i < this.filas; i++) {
+            fila = document.createElement("tr");
+            tablero.appendChild(fila);
+            for (let j = 0; j < this.columnas; j++) {
+                columna = document.createElement("td");
+                fila.appendChild(columna);
+
+                columna.id = "f" + i + "c" + j;
+                columna.dataset.fila = i;
+                columna.dataset.columna = j;
+            }            
+        }
+    }
 }
 
 class Memory extends Tablero {
