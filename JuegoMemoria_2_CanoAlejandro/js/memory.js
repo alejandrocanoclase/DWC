@@ -127,6 +127,40 @@ class Memory extends Tablero {
             }
         }
     }
+
+    dibujarTablero(){
+        super.dibujarTablero();
+
+        let celda;
+        this.voltear = this.voltear.bind(this);
+
+        for (let i = 0; i < this.filas; i++) {
+            for (let j = 0; j < this.columnas; j++) {
+
+                // EVENTOS
+                celda = document.getElementById("f" + i + "c" + j);
+                celda.addEventListener('click', this.voltear);
+            }
+        }
+
+        console.log(this.arrayTablero);
+    }
+
+    voltear(elEvento){
+        let evento = elEvento || window.event;
+        let celda = evento.currentTarget;
+
+        this.voltearCartas(celda);
+    }
+
+    voltearCartas(celda){
+        let filaCelda = celda.fila;
+        let columnaCelda = celda.columna;
+
+        alert(filaCelda);
+
+    }
+
 }
 
 let tableroMaster = new Memory();
