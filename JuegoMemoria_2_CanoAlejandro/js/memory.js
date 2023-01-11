@@ -154,10 +154,10 @@ class Memory extends Tablero {
     }
 
     voltearCartas(celda){
-        let filaCelda = celda.fila;
-        let columnaCelda = celda.columna;
+        let filaCelda = celda.dataset.fila;
+        let columnaCelda = celda.dataset.columna;
 
-        alert(filaCelda);
+        celda.innerHTML = this.arrayTablero[filaCelda][columnaCelda];
 
     }
 
