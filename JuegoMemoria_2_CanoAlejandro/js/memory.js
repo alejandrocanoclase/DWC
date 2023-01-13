@@ -79,7 +79,8 @@ class Memory extends Tablero {
         this.dibujarTablero();
         let celdaAnterior;
         let puntuacion;
-        let parejas;
+        let duos;
+        let intentos;
     }
 
     // Hace las parejas necesarias segun el tamño del tablero.
@@ -134,7 +135,7 @@ class Memory extends Tablero {
     dibujarTablero() {
 
         this.puntuacion = 0;
-        this. parejas = 0;
+        this.duos = 0;
         let titulo = document.createElement("h1");
         titulo.innerHTML = "Memorama";
 
@@ -172,10 +173,12 @@ class Memory extends Tablero {
     voltearCartas(celda) {
         let filaCelda = celda.dataset.fila;
         let columnaCelda = celda.dataset.columna;
+        
+
         celda.innerHTML = this.arrayTablero[filaCelda][columnaCelda];
         celda.style.backgroundColor = " grey ";
-        let puntos = document.getElementById("puntuacion");
-
+        
+        let parrafoPuntuacion = document.getElementById("puntuacion");        
 
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
@@ -185,17 +188,43 @@ class Memory extends Tablero {
                 celda.removeEventListener("click", this.voltear);
                 this.celdaAnterior.removeEventListener("click", this.voltear);
                 this.celdaAnterior = null;
-                this.puntuacion++;
-                puntos.innerHTML ="Puntuación: "+ this.puntuacion;
-                this.parejas ++;
-                console.log(this.parejas);
+                this.puntuacion+= 10;
+                parrafoPuntuacion.innerHTML ="Puntuación: "+ this.puntuacion;
+                this.duos ++;
+                console.log(this.duos);
+                this.ganar();
 
             } else {
                 this.taparCartas(celda, this.celdaAnterior);
                 this.celdaAnterior = null;
+
+                this.intentos
+
             }
         } else {
             this.celdaAnterior = celda;
+        }
+
+    }
+
+    ganar(){
+
+        let totalParejas = (this.filas * this.columnas)/2;
+
+        if(this.duos == totalParejas){
+            alert("Has ganado");
+        }
+    }
+
+    puntuacion(intentos){
+        
+        switch (intentos){
+            case intentos = 1:
+                return 10;
+            case intentos = 2:
+                return 5;
+            default:
+                return 2.5;
         }
 
     }
@@ -210,8 +239,6 @@ class Memory extends Tablero {
             celdaAnterior.style.backgroundColor = "white";
             celdaAnterior.innerHTML = "";
         }, 500);
-
-
 
     }
 
