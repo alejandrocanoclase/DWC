@@ -198,7 +198,7 @@ class Memory extends Tablero {
                 this.taparCartas(celda, this.celdaAnterior);
                 this.celdaAnterior = null;
 
-                this.intentos
+                this.intentos 
 
             }
         } else {
