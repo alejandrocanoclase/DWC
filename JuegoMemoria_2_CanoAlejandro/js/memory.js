@@ -131,13 +131,13 @@ class Memory extends Tablero {
     }
 
     dibujarTablero() {
-        
+
         this.puntuacion = 0;
         let titulo = document.createElement("h1");
-        titulo.innerHTML="Memorama";
+        titulo.innerHTML = "Memorama";
 
         let puntuacion = document.createElement("p");
-        puntuacion.innerHTML= "Puntuación: "+this.puntuacion;
+        puntuacion.innerHTML = "Puntuación: " + this.puntuacion;
 
         document.body.appendChild(titulo);
         document.body.appendChild(puntuacion);
@@ -171,30 +171,43 @@ class Memory extends Tablero {
         let columnaCelda = celda.dataset.columna;
         celda.innerHTML = this.arrayTablero[filaCelda][columnaCelda];
         celda.style.backgroundColor = " grey ";
-        
-        if(this.celdaAnterior != null){
-            if(celda.innerHTML == this.celdaAnterior.innerHTML){
+
+        if (this.celdaAnterior != null) {
+            if (celda.innerHTML == this.celdaAnterior.innerHTML) {
                 celda.style.backgroundColor = "green";
                 this.celdaAnterior.style.backgroundColor = "green";
-                
+
                 celda.removeEventListener("click", this.voltear);
                 this.celdaAnterior.removeEventListener("click", this.voltear);
                 this.celdaAnterior = null;
 
-            }else{
-                celda.style.backgroundColor = "red";
-                this.celdaAnterior.style.backgroundColor = "red";
+            } else {
+                this.taparCartas(celda, this.celdaAnterior);
                 this.celdaAnterior = null;
             }
-        }else{
+        } else {
             this.celdaAnterior = celda;
         }
-        
-        
+
+    }
+
+    taparCartas(celda, celdaAnterior) {
+
+        celda.style.backgroundColor = "red";
+        celdaAnterior.style.backgroundColor = "red";
+        setTimeout(function() {
+            celda.style.backgroundColor = "white";
+            celda.innerHTML = "";
+            celdaAnterior.style.backgroundColor = "white";
+            celdaAnterior.innerHTML = "";
+        }, 500);
+
+
+
     }
 
 }
 
-window.onload = function(){
+window.onload = function () {
     let tableroMaster = new Memory();
 }
