@@ -79,6 +79,7 @@ class Memory extends Tablero {
         this.dibujarTablero();
         let celdaAnterior;
         let puntuacion;
+        let parejas;
     }
 
     // Hace las parejas necesarias segun el tamño del tablero.
@@ -133,10 +134,12 @@ class Memory extends Tablero {
     dibujarTablero() {
 
         this.puntuacion = 0;
+        this. parejas = 0;
         let titulo = document.createElement("h1");
         titulo.innerHTML = "Memorama";
 
         let puntuacion = document.createElement("p");
+        puntuacion.id ="puntuacion";
         puntuacion.innerHTML = "Puntuación: " + this.puntuacion;
 
         document.body.appendChild(titulo);
@@ -171,6 +174,8 @@ class Memory extends Tablero {
         let columnaCelda = celda.dataset.columna;
         celda.innerHTML = this.arrayTablero[filaCelda][columnaCelda];
         celda.style.backgroundColor = " grey ";
+        let puntos = document.getElementById("puntuacion");
+
 
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
@@ -180,6 +185,10 @@ class Memory extends Tablero {
                 celda.removeEventListener("click", this.voltear);
                 this.celdaAnterior.removeEventListener("click", this.voltear);
                 this.celdaAnterior = null;
+                this.puntuacion++;
+                puntos.innerHTML ="Puntuación: "+ this.puntuacion;
+                this.parejas ++;
+                console.log(this.parejas);
 
             } else {
                 this.taparCartas(celda, this.celdaAnterior);
