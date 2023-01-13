@@ -64,7 +64,7 @@ class Tablero {
                 columna.id = "f" + i + "c" + j;
                 columna.dataset.fila = i;
                 columna.dataset.columna = j;
-            }            
+            }
         }
     }
 }
@@ -77,6 +77,8 @@ class Memory extends Tablero {
 
         this.colocarEmoticonos();
         this.dibujarTablero();
+        let celdaAnterior;
+        let puntuacion;
     }
 
     // Hace las parejas necesarias segun el tamño del tablero.
@@ -128,7 +130,18 @@ class Memory extends Tablero {
         }
     }
 
-    dibujarTablero(){
+    dibujarTablero() {
+        
+        this.puntuacion = 0;
+        let titulo = document.createElement("h1");
+        titulo.innerHTML="Memorama";
+
+        let puntuacion = document.createElement("p");
+        puntuacion.innerHTML= "Puntuación: "+this.puntuacion;
+
+        document.body.appendChild(titulo);
+        document.body.appendChild(puntuacion);
+
         super.dibujarTablero();
 
         let celda;
@@ -146,23 +159,42 @@ class Memory extends Tablero {
         console.log(this.arrayTablero);
     }
 
-    voltear(elEvento){
+    voltear(elEvento) {
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
 
         this.voltearCartas(celda);
     }
 
-    voltearCartas(celda){
+    voltearCartas(celda) {
         let filaCelda = celda.dataset.fila;
         let columnaCelda = celda.dataset.columna;
-
         celda.innerHTML = this.arrayTablero[filaCelda][columnaCelda];
+        celda.style.backgroundColor = " grey ";
+        
+        if(this.celdaAnterior != null){
+            if(celda.innerHTML == this.celdaAnterior.innerHTML){
+                celda.style.backgroundColor = "green";
+                this.celdaAnterior.style.backgroundColor = "green";
+                
+                celda.removeEventListener("click", this.voltear);
+                this.celdaAnterior.removeEventListener("click", this.voltear);
+                this.celdaAnterior = null;
 
+            }else{
+                celda.style.backgroundColor = "red";
+                this.celdaAnterior.style.backgroundColor = "red";
+                this.celdaAnterior = null;
+            }
+        }else{
+            this.celdaAnterior = celda;
+        }
+        
+        
     }
 
 }
 
-let tableroMaster = new Memory();
-
-
+window.onload = function(){
+    let tableroMaster = new Memory();
+}
