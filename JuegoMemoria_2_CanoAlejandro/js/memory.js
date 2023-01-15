@@ -160,7 +160,20 @@ class Memory extends Tablero {
             }
         }
 
+        let botonReiniciar = document.createElement("div");
+        botonReiniciar.innerHTML ="Reiniciar partida";
+        botonReiniciar.className="reiniciar";
+        document.body.appendChild(botonReiniciar);
+
+        botonReiniciar.addEventListener("click", this.reiniciarTablero);
+
+
         console.log(this.arrayTablero);
+    }
+
+    reiniciarTablero(){
+        let tablero = document.getElementsByTagName("table");
+        tablero.reset();
     }
 
     voltear(elEvento) {
