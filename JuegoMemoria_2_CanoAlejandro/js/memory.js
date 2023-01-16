@@ -50,6 +50,7 @@ class Tablero {
     // Dibuja en pantalla el tablero mediante el DOM.
     dibujarTablero() {
         let tablero = document.createElement("table");
+        tablero.id ="tablero";
         document.body.appendChild(tablero);
         let fila;
         let columna;
@@ -151,6 +152,7 @@ class Memory extends Tablero {
         let celda;
         this.voltear = this.voltear.bind(this);
 
+
         for (let i = 0; i < this.filas; i++) {
             for (let j = 0; j < this.columnas; j++) {
 
@@ -161,20 +163,16 @@ class Memory extends Tablero {
         }
 
         let botonReiniciar = document.createElement("div");
-        botonReiniciar.innerHTML ="Reiniciar partida";
+        botonReiniciar.innerHTML ="Nueva partida";
         botonReiniciar.className="reiniciar";
         document.body.appendChild(botonReiniciar);
 
-        botonReiniciar.addEventListener("click", this.reiniciarTablero);
+        botonReiniciar.addEventListener("click", this.dibujarTablero);
 
 
         console.log(this.arrayTablero);
     }
 
-    reiniciarTablero(){
-        let tablero = document.getElementsByTagName("table");
-        tablero.reset();
-    }
 
     voltear(elEvento) {
         let evento = elEvento || window.event;
