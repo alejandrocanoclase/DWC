@@ -151,7 +151,8 @@ class Memory extends Tablero {
             }
         }
 
-        let botonReiniciar = document.getElementById('reiniciar')
+        let botonReiniciar = document.getElementById('reiniciar');
+        
         this.reiniciarTablero = this.reiniciarTablero.bind(this);
         botonReiniciar.addEventListener("click", this.reiniciarTablero);
 
@@ -160,17 +161,13 @@ class Memory extends Tablero {
 
     reiniciarTablero() {
 
-        if (confirm("que pasa")) {
+        if (confirm("Qué pasa, quieres reiniciar bobo?")) {
             let tablero = document.getElementById("tablero");
             tablero.remove();
             this.dibujarTablero();
         } else {
-            alert('sigue mi niño');
+            alert('Sigue un ratitio más mi niño');
         }
-
-
-
-
     }
 
     voltear(elEvento) {
