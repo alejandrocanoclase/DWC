@@ -50,6 +50,7 @@ class Tablero {
     // Dibuja en pantalla el tablero mediante el DOM.
     dibujarTablero() {
         let tablero = document.createElement("table");
+        tablero.id ="tablero";
         document.body.appendChild(tablero);
         let fila;
         let columna;
@@ -143,8 +144,13 @@ class Memory extends Tablero {
         puntuacion.id ="puntuacion";
         puntuacion.innerHTML = "Puntuación: " + this.puntuacion;
 
+        let parejas = document.createElement("p");
+        parejas.innerHTML= "Parejas: "+ this.duos+"/"+(this.filas*this.columnas)/2;
+        parejas.id ="parejas";
+
         document.body.appendChild(titulo);
         document.body.appendChild(puntuacion);
+        document.body.appendChild(parejas);
 
         super.dibujarTablero();
 
@@ -160,7 +166,24 @@ class Memory extends Tablero {
             }
         }
 
+        let botonReiniciar = document.createElement("div");
+        botonReiniciar.innerHTML ="Nueva partida";
+        botonReiniciar.className="reiniciar";
+        document.body.appendChild(botonReiniciar);
+
+        this.reiniciarTablero = this.reiniciarTablero.bind(this);
+
+        botonReiniciar.addEventListener("click", this.reiniciarTablero);
+
         console.log(this.arrayTablero);
+    }
+
+    reiniciarTablero(){
+        let tablero = document.getElementById("tablero");
+        tablero.remove();
+
+
+        this.dibujarTablero();
     }
 
     voltear(elEvento) {
@@ -178,7 +201,8 @@ class Memory extends Tablero {
         celda.innerHTML = this.arrayTablero[filaCelda][columnaCelda];
         celda.style.backgroundColor = " grey ";
         
-        let parrafoPuntuacion = document.getElementById("puntuacion");        
+        let parrafoPuntuacion = document.getElementById("puntuacion");
+        let parrafoParejas = document.getElementById("parejas");        
 
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
@@ -191,6 +215,7 @@ class Memory extends Tablero {
                 this.puntuacion+= 10;
                 parrafoPuntuacion.innerHTML ="Puntuación: "+ this.puntuacion;
                 this.duos ++;
+                parejas.innerHTML= "Parejas: "+ this.duos+"/"+(this.filas*this.columnas)/2;
                 console.log(this.duos);
                 this.ganar();
 
@@ -223,8 +248,10 @@ class Memory extends Tablero {
                 return 10;
             case intentos = 2:
                 return 5;
-            default:
+            case intentos = 3:
                 return 2.5;
+            default:
+                return 0;
         }
 
     }
