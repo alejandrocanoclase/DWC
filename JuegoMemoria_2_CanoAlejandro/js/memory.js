@@ -50,7 +50,7 @@ class Tablero {
     // Dibuja en pantalla el tablero mediante el DOM.
     dibujarTablero() {
         let tablero = document.createElement("table");
-        tablero.id ="tablero";
+        tablero.id = "tablero";
         document.body.appendChild(tablero);
         let fila;
         let columna;
@@ -137,21 +137,6 @@ class Memory extends Tablero {
 
         this.puntuacion = 0;
         this.duos = 0;
-        let titulo = document.createElement("h1");
-        titulo.innerHTML = "Memorama";
-
-        let puntuacion = document.createElement("p");
-        puntuacion.id ="puntuacion";
-        puntuacion.innerHTML = "Puntuación: " + this.puntuacion;
-
-        let parejas = document.createElement("p");
-        parejas.innerHTML= "Parejas: "+ this.duos+"/"+(this.filas*this.columnas)/2;
-        parejas.id ="parejas";
-
-        document.body.appendChild(titulo);
-        document.body.appendChild(puntuacion);
-        document.body.appendChild(parejas);
-
         super.dibujarTablero();
 
         let celda;
@@ -166,24 +151,26 @@ class Memory extends Tablero {
             }
         }
 
-        let botonReiniciar = document.createElement("div");
-        botonReiniciar.innerHTML ="Nueva partida";
-        botonReiniciar.className="reiniciar";
-        document.body.appendChild(botonReiniciar);
-
+        let botonReiniciar = document.getElementById('reiniciar')
         this.reiniciarTablero = this.reiniciarTablero.bind(this);
-
         botonReiniciar.addEventListener("click", this.reiniciarTablero);
 
         console.log(this.arrayTablero);
     }
 
-    reiniciarTablero(){
-        let tablero = document.getElementById("tablero");
-        tablero.remove();
+    reiniciarTablero() {
+
+        if (confirm("que pasa")) {
+            let tablero = document.getElementById("tablero");
+            tablero.remove();
+            this.dibujarTablero();
+        } else {
+            alert('sigue mi niño');
+        }
 
 
-        this.dibujarTablero();
+
+
     }
 
     voltear(elEvento) {
@@ -196,13 +183,13 @@ class Memory extends Tablero {
     voltearCartas(celda) {
         let filaCelda = celda.dataset.fila;
         let columnaCelda = celda.dataset.columna;
-        
+
 
         celda.innerHTML = this.arrayTablero[filaCelda][columnaCelda];
         celda.style.backgroundColor = " grey ";
-        
+
         let parrafoPuntuacion = document.getElementById("puntuacion");
-        let parrafoParejas = document.getElementById("parejas");        
+        let parrafoParejas = document.getElementById("parejas");
 
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
@@ -212,10 +199,10 @@ class Memory extends Tablero {
                 celda.removeEventListener("click", this.voltear);
                 this.celdaAnterior.removeEventListener("click", this.voltear);
                 this.celdaAnterior = null;
-                this.puntuacion+= 10;
-                parrafoPuntuacion.innerHTML ="Puntuación: "+ this.puntuacion;
-                this.duos ++;
-                parejas.innerHTML= "Parejas: "+ this.duos+"/"+(this.filas*this.columnas)/2;
+                this.puntuacion += 10;
+                parrafoPuntuacion.innerHTML = "Puntuación: " + this.puntuacion;
+                this.duos++;
+                parejas.innerHTML = "Parejas: " + this.duos + "/" + (this.filas * this.columnas) / 2;
                 console.log(this.duos);
                 this.ganar();
 
@@ -223,7 +210,7 @@ class Memory extends Tablero {
                 this.taparCartas(celda, this.celdaAnterior);
                 this.celdaAnterior = null;
 
-                this.intentos 
+                this.intentos
 
             }
         } else {
@@ -232,18 +219,18 @@ class Memory extends Tablero {
 
     }
 
-    ganar(){
+    ganar() {
 
-        let totalParejas = (this.filas * this.columnas)/2;
+        let totalParejas = (this.filas * this.columnas) / 2;
 
-        if(this.duos == totalParejas){
+        if (this.duos == totalParejas) {
             alert("Has ganado");
         }
     }
 
-    puntuacion(intentos){
-        
-        switch (intentos){
+    puntuacion(intentos) {
+
+        switch (intentos) {
             case intentos = 1:
                 return 10;
             case intentos = 2:
@@ -260,7 +247,7 @@ class Memory extends Tablero {
 
         celda.style.backgroundColor = "red";
         celdaAnterior.style.backgroundColor = "red";
-        setTimeout(function() {
+        setTimeout(function () {
             celda.style.backgroundColor = "white";
             celda.innerHTML = "";
             celdaAnterior.style.backgroundColor = "white";

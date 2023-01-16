@@ -24,7 +24,8 @@ td{
     font-size: 20pt;
 }
 
-.reiniciar{
+
+#reiniciar{
     display: inline-block;
     margin: 10px auto;
     background-color: orange;
