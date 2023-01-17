@@ -82,6 +82,7 @@ class Memory extends Tablero {
         let puntuacion;
         let duos;
         let intentos;
+        let tiempo;
     }
 
     // Hace las parejas necesarias segun el tamño del tablero.
@@ -156,10 +157,15 @@ class Memory extends Tablero {
         this.reiniciarTablero = this.reiniciarTablero.bind(this);
         botonReiniciar.addEventListener("click", this.reiniciarTablero);
 
+        this.tiempo = new Date().getTime();
+        
+
         console.log(this.arrayTablero);
     }
 
     reiniciarTablero() {
+
+        
 
         if (confirm("Qué pasa, quieres reiniciar bobo?")) {
             let tablero = document.getElementById("tablero");
@@ -201,8 +207,6 @@ class Memory extends Tablero {
                 this.duos++;
                 parejas.innerHTML = "Parejas: " + this.duos + "/" + (this.filas * this.columnas) / 2;
                 console.log(this.duos);
-                this.ganar();
-
             } else {
                 this.taparCartas(celda, this.celdaAnterior);
                 this.celdaAnterior = null;
@@ -213,15 +217,31 @@ class Memory extends Tablero {
         } else {
             this.celdaAnterior = celda;
         }
+        this.cronometro();
+        this.ganar();
+
+    }
+
+    cronometro(){
+
+        let cronometro = document.getElementById('cronometro');
+
+        setInterval(function(){
+
+            cronometro.innerHTML= "Tiempo: "+(this.tiempo - new Date().getTime)/100
+
+        },1000);
 
     }
 
     ganar() {
 
         let totalParejas = (this.filas * this.columnas) / 2;
+        let tiempo = (new Date().getTime()-this.tiempo)/1000;
+        
 
         if (this.duos == totalParejas) {
-            alert("Has ganado");
+            alert("Has ganado \n"+ "Has tardado: "+tiempo);
         }
     }
 
