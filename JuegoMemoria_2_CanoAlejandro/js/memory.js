@@ -5,12 +5,10 @@ class Tablero {
 
     // Crea el tablero con un array bidemensional.
     constructor() {
-
         this.tamañoTablero();
         this.esParTablero();
         this.crearTablero();
-
-
+        
     }
 
     // Pregunta al usuario cuantas dilas y columnas quiere.
@@ -78,6 +76,7 @@ class Memory extends Tablero {
 
         this.colocarEmoticonos();
         this.dibujarTablero();
+        //this.empezarJuego();
         let celdaAnterior;
         let puntuacion;
         let duos;
@@ -158,19 +157,24 @@ class Memory extends Tablero {
         botonReiniciar.addEventListener("click", this.reiniciarTablero);
 
         this.tiempo = new Date().getTime();
+
+        this.cronometro();
         
 
         console.log(this.arrayTablero);
     }
 
+    empezarJuego(){
+
+    }
+
     reiniciarTablero() {
-
-        
-
         if (confirm("Qué pasa, quieres reiniciar bobo?")) {
             let tablero = document.getElementById("tablero");
             tablero.remove();
-            this.dibujarTablero();
+            clearInterval();
+            new Memory();
+
         } else {
             alert('Sigue un ratitio más mi niño');
         }
@@ -205,7 +209,7 @@ class Memory extends Tablero {
                 this.puntuacion += 10;
                 parrafoPuntuacion.innerHTML = "Puntuación: " + this.puntuacion;
                 this.duos++;
-                parejas.innerHTML = "Parejas: " + this.duos + "/" + (this.filas * this.columnas) / 2;
+                parrafoParejas.innerHTML = "Parejas: " + this.duos + "/" + (this.filas * this.columnas) / 2;
                 console.log(this.duos);
             } else {
                 this.taparCartas(celda, this.celdaAnterior);
@@ -217,7 +221,6 @@ class Memory extends Tablero {
         } else {
             this.celdaAnterior = celda;
         }
-        this.cronometro();
         this.ganar();
 
     }
@@ -225,23 +228,34 @@ class Memory extends Tablero {
     cronometro(){
 
         let cronometro = document.getElementById('cronometro');
+        let segundos = 0;
+        let minutos = 0;
+        let cadenaSegundos = "";
 
-        setInterval(function(){
+        this.tiempo = setInterval(function(){
+            segundos ++;
+            if(segundos > 59){
+                segundos = 0;
+                minutos ++;
+            }
 
-            cronometro.innerHTML= "Tiempo: "+(this.tiempo - new Date().getTime)/100
-
-        },1000);
-
+            if(segundos < 10){
+                cadenaSegundos = "0"+segundos;
+            }else{
+                cadenaSegundos = segundos;
+            }
+            cronometro.innerHTML ="Tiempo: "+minutos+":"+cadenaSegundos;
+            this.tiempo = cronometro.innerHTML;
+            },1000);
     }
 
     ganar() {
 
         let totalParejas = (this.filas * this.columnas) / 2;
-        let tiempo = (new Date().getTime()-this.tiempo)/1000;
-        
+        let tiempo = this.tiempo;        
 
         if (this.duos == totalParejas) {
-            alert("Has ganado \n"+ "Has tardado: "+tiempo);
+            alert("Has ganado \n"+ "Has tardado: "+parseInt(tiempo)+ " segundos.");
         }
     }
 
