@@ -139,6 +139,11 @@ class Memory extends Tablero {
         this.duos = 0;
         super.dibujarTablero();
 
+        let parrafoPuntuacion = document.getElementById("puntuacion");
+        parrafoPuntuacion.innerHTML = "Puntuación: 0";
+        let parrafoParejas = document.getElementById("parejas");
+        parrafoParejas.innerHTML = "Parejas: 0" + "/" + (this.filas * this.columnas) / 2;
+
         let celda;
         this.voltear = this.voltear.bind(this);
 
@@ -157,22 +162,18 @@ class Memory extends Tablero {
         botonReiniciar.addEventListener("click", this.reiniciarTablero);
 
         this.tiempo = new Date().getTime();
-
         this.cronometro();
         
 
         console.log(this.arrayTablero);
     }
 
-    empezarJuego(){
-
-    }
 
     reiniciarTablero() {
         if (confirm("Qué pasa, quieres reiniciar bobo?")) {
             let tablero = document.getElementById("tablero");
+            clearInterval(this.tiempo);
             tablero.remove();
-            clearInterval();
             new Memory();
 
         } else {
@@ -252,10 +253,11 @@ class Memory extends Tablero {
     ganar() {
 
         let totalParejas = (this.filas * this.columnas) / 2;
-        let tiempo = this.tiempo;        
+        let tiempo = document.getElementById('cronometro');
+        clearInterval(this.tiempo);
 
         if (this.duos == totalParejas) {
-            alert("Has ganado \n"+ "Has tardado: "+parseInt(tiempo)+ " segundos.");
+            alert("¡Enhorabuena, has ganado! \n"+tiempo.innerHTML+ " segundos.\n"+"Conseguiste un total de: "+this.puntuacion+" puntos.");
         }
     }
 
