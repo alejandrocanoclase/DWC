@@ -76,7 +76,6 @@ class Memory extends Tablero {
 
         this.colocarEmoticonos();
         this.dibujarTablero();
-        //this.empezarJuego();
         let celdaAnterior;
         let puntuacion;
         let duos;
@@ -137,6 +136,7 @@ class Memory extends Tablero {
 
         this.puntuacion = 0;
         this.duos = 0;
+        this.celdasPulsadas = [];
         super.dibujarTablero();
 
         let parrafoPuntuacion = document.getElementById("puntuacion");
@@ -199,6 +199,9 @@ class Memory extends Tablero {
         let parrafoPuntuacion = document.getElementById("puntuacion");
         let parrafoParejas = document.getElementById("parejas");
 
+
+        this.puntos(celda);
+
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
                 celda.style.backgroundColor = "green";
@@ -215,9 +218,6 @@ class Memory extends Tablero {
             } else {
                 this.taparCartas(celda, this.celdaAnterior);
                 this.celdaAnterior = null;
-
-                this.intentos
-
             }
         } else {
             this.celdaAnterior = celda;
@@ -225,6 +225,7 @@ class Memory extends Tablero {
         this.ganar();
 
     }
+
 
     cronometro(){
 
@@ -254,25 +255,21 @@ class Memory extends Tablero {
 
         let totalParejas = (this.filas * this.columnas) / 2;
         let tiempo = document.getElementById('cronometro');
-        clearInterval(this.tiempo);
 
         if (this.duos == totalParejas) {
+            clearInterval(this.tiempo);
             alert("¡Enhorabuena, has ganado! \n"+tiempo.innerHTML+ " segundos.\n"+"Conseguiste un total de: "+this.puntuacion+" puntos.");
         }
     }
 
-    puntuacion(intentos) {
 
-        switch (intentos) {
-            case intentos = 1:
-                return 10;
-            case intentos = 2:
-                return 5;
-            case intentos = 3:
-                return 2.5;
-            default:
-                return 0;
-        }
+    puntos(casilla) {
+
+        this.celdasPulsadas.push(casilla);
+
+        console.log(this.celdasPulsadas);
+        
+        
 
     }
 
