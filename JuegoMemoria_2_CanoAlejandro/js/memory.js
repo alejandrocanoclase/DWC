@@ -135,7 +135,6 @@ class Memory extends Tablero {
 
         this.puntuacion = 0;
         this.contadorParejas = 0;
-        this.celdasPulsadas = [];
         super.dibujarTablero();
 
         let parrafoPuntuacion = document.getElementById("puntuacion");
@@ -170,11 +169,14 @@ class Memory extends Tablero {
 
 
     reiniciarTablero() {
-        if (confirm("Deseas iniciar una partida nueva")) {
+        if (confirm("¿Deseas iniciar una partida nueva?")) {
+            /*
             let tablero = document.getElementById("tablero");
             clearInterval(this.tiempo);
             tablero.remove();
             new Memory();
+            */
+           document.location="index.html";
 
         } else {
             alert('Puedes continuar');
@@ -230,15 +232,6 @@ class Memory extends Tablero {
 
     puntos(casilla) {
 
-        /*
-        if(this.celdasPulsadas.indexOf(casilla) == -1){
-            this.celdasPulsadas.push(casilla);
-        }else{
-            if(celda.innerHTML == this.celdaAnterior.innerHTML){
-                
-            }
-        }
-        */
         let intentosCasilla = parseInt(casilla.dataset.intentos);
         let intentosCeldaAnterior = parseInt(this.celdaAnterior.dataset.intentos);
 
