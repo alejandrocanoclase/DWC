@@ -78,8 +78,7 @@ class Memory extends Tablero {
         this.dibujarTablero();
         let celdaAnterior;
         let puntuacion;
-        let duos;
-        let intentos;
+        let contadorParejas;
         let tiempo;
     }
 
@@ -135,7 +134,7 @@ class Memory extends Tablero {
     dibujarTablero() {
 
         this.puntuacion = 0;
-        this.duos = 0;
+        this.contadorParejas = 0;
         this.celdasPulsadas = [];
         super.dibujarTablero();
 
@@ -153,6 +152,7 @@ class Memory extends Tablero {
                 // EVENTOS
                 celda = document.getElementById("f" + i + "c" + j);
                 celda.addEventListener('click', this.voltear);
+                celda.dataset.intentos = 0;
             }
         }
 
@@ -170,14 +170,14 @@ class Memory extends Tablero {
 
 
     reiniciarTablero() {
-        if (confirm("Qué pasa, quieres reiniciar bobo?")) {
+        if (confirm("Deseas iniciar una partida nueva")) {
             let tablero = document.getElementById("tablero");
             clearInterval(this.tiempo);
             tablero.remove();
             new Memory();
 
         } else {
-            alert('Sigue un ratitio más mi niño');
+            alert('Puedes continuar');
         }
     }
 
@@ -200,7 +200,7 @@ class Memory extends Tablero {
         let parrafoParejas = document.getElementById("parejas");
 
 
-        this.puntos(celda);
+        //this.puntos(celda);
 
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
@@ -209,20 +209,69 @@ class Memory extends Tablero {
 
                 celda.removeEventListener("click", this.voltear);
                 this.celdaAnterior.removeEventListener("click", this.voltear);
+                this.puntos(celda);
                 this.celdaAnterior = null;
-                this.puntuacion += 10;
                 parrafoPuntuacion.innerHTML = "Puntuación: " + this.puntuacion;
-                this.duos++;
-                parrafoParejas.innerHTML = "Parejas: " + this.duos + "/" + (this.filas * this.columnas) / 2;
-                console.log(this.duos);
+                this.contadorParejas++;
+                parrafoParejas.innerHTML = "Parejas: " + this.contadorParejas + "/" + (this.filas * this.columnas) / 2;
+                console.log(this.contadorParejas);
             } else {
                 this.taparCartas(celda, this.celdaAnterior);
+                celda.dataset.intentos = parseInt(celda.dataset.intentos) + 1;
+                this.celdaAnterior.dataset.intentos = parseInt(this.celdaAnterior.dataset.intentos) + 1;
                 this.celdaAnterior = null;
             }
         } else {
             this.celdaAnterior = celda;
         }
         this.ganar();
+
+    }
+
+    puntos(casilla) {
+
+        /*
+        if(this.celdasPulsadas.indexOf(casilla) == -1){
+            this.celdasPulsadas.push(casilla);
+        }else{
+            if(celda.innerHTML == this.celdaAnterior.innerHTML){
+                
+            }
+        }
+        */
+        let intentosCasilla = parseInt(casilla.dataset.intentos);
+        let intentosCeldaAnterior = parseInt(this.celdaAnterior.dataset.intentos);
+
+        if(intentosCasilla > intentosCeldaAnterior){
+            switch (intentosCasilla){
+                case 0:
+                    this.puntuacion +=10;
+                    break;
+                case 1:
+                    this.puntuacion +=5;
+                    break;
+                case 2:
+                    this.puntuacion +=2,5;
+                    break;
+                default:
+                    this.puntuacion +=0;
+            }
+        }else{
+            switch (intentosCeldaAnterior){
+                case 0:
+                    this.puntuacion +=10;
+                    break;
+                case 1:
+                    this.puntuacion +=5;
+                    break;
+                case 2:
+                    this.puntuacion +=2,5;
+                    break;
+                default:
+                    this.puntuacion +=0;
+        }
+    }
+        
 
     }
 
@@ -256,22 +305,14 @@ class Memory extends Tablero {
         let totalParejas = (this.filas * this.columnas) / 2;
         let tiempo = document.getElementById('cronometro');
 
-        if (this.duos == totalParejas) {
+        if (this.contadorParejas == totalParejas) {
             clearInterval(this.tiempo);
             alert("¡Enhorabuena, has ganado! \n"+tiempo.innerHTML+ " segundos.\n"+"Conseguiste un total de: "+this.puntuacion+" puntos.");
         }
     }
 
 
-    puntos(casilla) {
 
-        this.celdasPulsadas.push(casilla);
-
-        console.log(this.celdasPulsadas);
-        
-        
-
-    }
 
     taparCartas(celda, celdaAnterior) {
 
