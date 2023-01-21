@@ -138,7 +138,7 @@ class Memory extends Tablero {
         super.dibujarTablero();
 
         let parrafoPuntuacion = document.getElementById("puntuacion");
-        parrafoPuntuacion.innerHTML = "Puntuación: 0";
+        parrafoPuntuacion.innerHTML = "Puntuación: 0/" +((this.filas * this.columnas) / 2)*10;
         let parrafoParejas = document.getElementById("parejas");
         parrafoParejas.innerHTML = "Parejas: 0" + "/" + (this.filas * this.columnas) / 2;
 
@@ -213,7 +213,7 @@ class Memory extends Tablero {
                 this.celdaAnterior.removeEventListener("click", this.voltear);
                 this.puntos(celda);
                 this.celdaAnterior = null;
-                parrafoPuntuacion.innerHTML = "Puntuación: " + this.puntuacion;
+                parrafoPuntuacion.innerHTML = "Puntuación: " + this.puntuacion + "/" + ((this.filas * this.columnas) / 2)*10;
                 this.contadorParejas++;
                 parrafoParejas.innerHTML = "Parejas: " + this.contadorParejas + "/" + (this.filas * this.columnas) / 2;
                 console.log(this.contadorParejas);
