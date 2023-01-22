@@ -169,7 +169,7 @@ class Memory extends Tablero {
 
                 // EVENTOS
                 celda = document.getElementById("f" + i + "c" + j);
-                celda.addEventListener('click', this.voltear);
+                celda.addEventListener('contextmenu', this.voltear);
                 celda.dataset.intentos = 0;
             }
         }
@@ -177,7 +177,7 @@ class Memory extends Tablero {
         let botonReiniciar = document.getElementById('reiniciar');
         
         this.reiniciarTablero = this.reiniciarTablero.bind(this);
-        botonReiniciar.addEventListener("click", this.reiniciarTablero);
+        botonReiniciar.addEventListener("contextmenu", this.reiniciarTablero);
 
         this.cronometro();
         this.revelarTablero();
@@ -207,6 +207,9 @@ class Memory extends Tablero {
         let filaCelda = celda.dataset.fila;
         let columnaCelda = celda.dataset.columna;
 
+        window.oncontextmenu = function () {
+            return false;
+        };
 
         celda.innerHTML = this.arrayTablero[filaCelda][columnaCelda];
         celda.style.backgroundColor = " grey ";
@@ -214,7 +217,7 @@ class Memory extends Tablero {
         let parrafoPuntuacion = document.getElementById("puntuacion");
         let parrafoParejas = document.getElementById("parejas");
 
-        celda.removeEventListener("click", this.voltear);
+        celda.removeEventListener("contextmenu", this.voltear);
 
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
@@ -222,7 +225,7 @@ class Memory extends Tablero {
                 this.celdaAnterior.style.backgroundColor = "green";
 
                 
-                this.celdaAnterior.removeEventListener("click", this.voltear);
+                this.celdaAnterior.removeEventListener("contextmenu", this.voltear);
                 this.puntos(celda);
                 this.celdaAnterior = null;
                 parrafoPuntuacion.innerHTML = "Puntuación: " + this.puntuacion + "/" + ((this.filas * this.columnas) / 2)*10;
@@ -230,8 +233,8 @@ class Memory extends Tablero {
                 parrafoParejas.innerHTML = "Parejas: " + this.contadorParejas + "/" + (this.filas * this.columnas) / 2;
                 console.log(this.contadorParejas);
             } else {
-                celda.addEventListener("click", this.voltear);
-                this.celdaAnterior.addEventListener("click", this.voltear);
+                celda.addEventListener("contextmenu", this.voltear);
+                this.celdaAnterior.addEventListener("contextmenu", this.voltear);
                 this.taparCartas(celda, this.celdaAnterior);
                 celda.dataset.intentos = parseInt(celda.dataset.intentos) + 1;
                 this.celdaAnterior.dataset.intentos = parseInt(this.celdaAnterior.dataset.intentos) + 1;
