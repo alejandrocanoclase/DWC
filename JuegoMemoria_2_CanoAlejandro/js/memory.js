@@ -131,6 +131,29 @@ class Memory extends Tablero {
         }
     }
 
+    revelarTablero(){
+        let celda;
+        
+
+        for (let i = 0; i < this.filas; i++) {
+            for (let j = 0; j < this.columnas; j++) {
+                celda = document.getElementById("f" + i + "c" + j);
+                celda.innerHTML = this.arrayTablero[i][j];
+            }
+            
+        }
+
+        let esconder = setTimeout(() =>{
+            for (let i = 0; i < this.filas; i++) {
+                for (let j = 0; j < this.columnas; j++) {
+                    celda = document.getElementById("f" + i + "c" + j);
+                    celda.innerHTML = "";
+                }
+            }
+        },3000);
+
+    }
+
     dibujarTablero() {
 
         this.puntuacion = 0;
@@ -160,8 +183,8 @@ class Memory extends Tablero {
         this.reiniciarTablero = this.reiniciarTablero.bind(this);
         botonReiniciar.addEventListener("click", this.reiniciarTablero);
 
-        this.tiempo = new Date().getTime();
         this.cronometro();
+        this.revelarTablero();
         
 
         console.log(this.arrayTablero);
@@ -170,12 +193,6 @@ class Memory extends Tablero {
 
     reiniciarTablero() {
         if (confirm("¿Deseas iniciar una partida nueva?")) {
-            /*
-            let tablero = document.getElementById("tablero");
-            clearInterval(this.tiempo);
-            tablero.remove();
-            new Memory();
-            */
            document.location="index.html";
 
         } else {
@@ -200,9 +217,6 @@ class Memory extends Tablero {
 
         let parrafoPuntuacion = document.getElementById("puntuacion");
         let parrafoParejas = document.getElementById("parejas");
-
-
-        //this.puntos(celda);
 
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
