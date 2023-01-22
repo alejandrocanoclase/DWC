@@ -3,13 +3,43 @@
 }
 
 h1{
-    color: green;
+    color: #ffffff;
+    font-size: 35pt;
+    text-decoration: dashed;
+    margin: auto;
+    width: 20%;
+    padding: 15px;
+    text-shadow: 1px 1px 1px black;
 }
+
+p{
+    font-weight: 700;
+}
+
+.info{
+    border: 1px solid black;
+    display: inline-block;
+    padding: 15px;
+    margin: 15px;
+    vertical-align: middle;
+    left: 25%;
+}
+
+
+body{
+    background-color: rgb(66, 170, 255);
+    position: relative;
+}
+
+
 
 table{
     text-align: center;
     margin: auto;
-    
+    background-color:  white;
+    box-shadow: 5px 5px 5px rgb(78, 78, 78);
+    vertical-align: middle;
+    align-items: center;
 }
 
 table, td {
