@@ -76,10 +76,6 @@ class Memory extends Tablero {
 
         this.colocarEmoticonos();
         this.dibujarTablero();
-        let celdaAnterior;
-        let puntuacion;
-        let contadorParejas;
-        let tiempo;
     }
 
     // Hace las parejas necesarias segun el tamño del tablero.
@@ -218,12 +214,14 @@ class Memory extends Tablero {
         let parrafoPuntuacion = document.getElementById("puntuacion");
         let parrafoParejas = document.getElementById("parejas");
 
+        celda.removeEventListener("click", this.voltear);
+
         if (this.celdaAnterior != null) {
             if (celda.innerHTML == this.celdaAnterior.innerHTML) {
                 celda.style.backgroundColor = "green";
                 this.celdaAnterior.style.backgroundColor = "green";
 
-                celda.removeEventListener("click", this.voltear);
+                
                 this.celdaAnterior.removeEventListener("click", this.voltear);
                 this.puntos(celda);
                 this.celdaAnterior = null;
@@ -232,6 +230,8 @@ class Memory extends Tablero {
                 parrafoParejas.innerHTML = "Parejas: " + this.contadorParejas + "/" + (this.filas * this.columnas) / 2;
                 console.log(this.contadorParejas);
             } else {
+                celda.addEventListener("click", this.voltear);
+                this.celdaAnterior.addEventListener("click", this.voltear);
                 this.taparCartas(celda, this.celdaAnterior);
                 celda.dataset.intentos = parseInt(celda.dataset.intentos) + 1;
                 this.celdaAnterior.dataset.intentos = parseInt(this.celdaAnterior.dataset.intentos) + 1;
