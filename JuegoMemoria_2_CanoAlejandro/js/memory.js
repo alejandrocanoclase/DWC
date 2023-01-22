@@ -127,9 +127,9 @@ class Memory extends Tablero {
         }
     }
 
+    // Revela el tablero durante 3seg para que se vean los emoticonos en el tablero.
     revelarTablero(){
         let celda;
-        
 
         for (let i = 0; i < this.filas; i++) {
             for (let j = 0; j < this.columnas; j++) {
@@ -150,6 +150,7 @@ class Memory extends Tablero {
 
     }
 
+    // Añade los eventos a las celdas además de actualizar el tiempo, la puntiación y el número de parejas.
     dibujarTablero() {
 
         this.puntuacion = 0;
@@ -177,16 +178,14 @@ class Memory extends Tablero {
         let botonReiniciar = document.getElementById('reiniciar');
         
         this.reiniciarTablero = this.reiniciarTablero.bind(this);
-        botonReiniciar.addEventListener("contextmenu", this.reiniciarTablero);
+        botonReiniciar.addEventListener("click", this.reiniciarTablero);
 
         this.cronometro();
         this.revelarTablero();
-        
 
-        console.log(this.arrayTablero);
     }
 
-
+    // Evento para reiniciar la partida.
     reiniciarTablero() {
         if (confirm("¿Deseas iniciar una partida nueva?")) {
            document.location="index.html";
@@ -196,6 +195,7 @@ class Memory extends Tablero {
         }
     }
 
+    // Manejador del evento voltearCartas.
     voltear(elEvento) {
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
@@ -203,6 +203,8 @@ class Memory extends Tablero {
         this.voltearCartas(celda);
     }
 
+    // Evento donde se revela el contenido de la celda, se compara si se ha hecho una pareja y se actualizan los marcadores.
+    // También se aplican ciertos estilos con DOM según la situación.
     voltearCartas(celda) {
         let filaCelda = celda.dataset.fila;
         let columnaCelda = celda.dataset.columna;
@@ -247,6 +249,7 @@ class Memory extends Tablero {
 
     }
 
+    // Se implementa el sistema de puntos.
     puntos(casilla) {
 
         let intentosCasilla = parseInt(casilla.dataset.intentos);
@@ -285,7 +288,7 @@ class Memory extends Tablero {
 
     }
 
-
+    // Cronómetro que cuenta los segundos y minutos que transcurren durante la partida.
     cronometro(){
 
         let cronometro = document.getElementById('cronometro');
@@ -310,6 +313,7 @@ class Memory extends Tablero {
             },1000);
     }
 
+    // Mensaje emergente al ganar la partida.
     ganar() {
 
         let totalParejas = (this.filas * this.columnas) / 2;
@@ -321,9 +325,7 @@ class Memory extends Tablero {
         }
     }
 
-
-
-
+    // En caso de error, se vuelven a tapar las cartas seleccionadas anteriormente
     taparCartas(celda, celdaAnterior) {
 
         celda.style.backgroundColor = "red";
